@@ -5,8 +5,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ToDo-list</title>
     <link rel="stylesheet" href="style.css" />
+    <style>
+      * {
+        box-sizing: border-boxs;
+      }
+      body {
+        background-color: rgb(144, 116, 72);
+      }
+      h1,
+      form {
+        text-align: center;
+      }
+      h1 {
+        color: rgb(49, 28, 4);
+        font-size: 60px;
+        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+      }
+      input,
+      button[type="submit"] {
+        min-height: 40px;
+      }
+      button[type="submit"] {
+        min-width: 40px;
+      }
+      main {
+        width: max-content;
+        margin-inline: auto;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      li {
+        color: wheat;
+        padding: 0.5rem;
+        margin-bottom: 3px;
+        background-color: rgb(111, 107, 43);
+      }
+      .strike {
+        text-decoration: line-through;
+      }
+      li button {
+        background-color: rgb(82, 28, 5);
+        border: 0;
+        color: white;
+        border-radius: 25px;
+        float: right;
+      }
+      li button:hover {
+        background-color: rgb(143, 75, 7);
+      }
+    </style>
   </head>
   <body>
-    <script src="script.js"></script>
+    <main>
+      <h1>TODO LIST</h1>
+      <form>
+        <input id="taskInp" type="text" placeholder="Inserisci la task" required />
+        <button type="submit">+</button>
+      </form>
+      <ul id="list"></ul>
+    </main>
+    <script>
+      const form = document.querySelector("form");
+      const ul = document.getElementById("list");
+      form.onsubmit = function (event) {
+        event.preventDefault();
+
+        const inputNode = document.getElementById("taskInp");
+        const li = document.createElement("li");
+        li.innerText = inputNode.value;
+        ul.appendChild(li);
+
+        li.onclick = function (event) {
+          event.currentTarget.classList.toggle("strike");
+        };
+        const deleteBtn = document.createElement("button");
+        deleteBtn.innerHTML = `<svg fill="#f7f7f7" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" viewBox="0 0 41.34 41.34" xml:space="preserve" stroke="#f7f7f7"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M36.335,5.668h-8.167V1.5c0-0.828-0.672-1.5-1.5-1.5h-12c-0.828,0-1.5,0.672-1.5,1.5v4.168H5.001c-1.104,0-2,0.896-2,2 s0.896,2,2,2h2.001v29.168c0,1.381,1.119,2.5,2.5,2.5h22.332c1.381,0,2.5-1.119,2.5-2.5V9.668h2.001c1.104,0,2-0.896,2-2 S37.438,5.668,36.335,5.668z M14.168,35.67c0,0.828-0.672,1.5-1.5,1.5s-1.5-0.672-1.5-1.5v-21c0-0.828,0.672-1.5,1.5-1.5 s1.5,0.672,1.5,1.5V35.67z M22.168,35.67c0,0.828-0.672,1.5-1.5,1.5s-1.5-0.672-1.5-1.5v-21c0-0.828,0.672-1.5,1.5-1.5 s1.5,0.672,1.5,1.5V35.67z M25.168,5.668h-9V3h9V5.668z M30.168,35.67c0,0.828-0.672,1.5-1.5,1.5s-1.5-0.672-1.5-1.5v-21 c0-0.828,0.672-1.5,1.5-1.5s1.5,0.672,1.5,1.5V35.67z"></path> </g> </g></svg>`;
+        deleteBtn.onclick = function (e) {
+          e.currentTarget.parentNode.remove();
+        };
+        li.appendChild(deleteBtn);
+
+        //form.reset() tutti i campi
+        inputNode.value = "";
+      };
+    </script>
   </body>
 </html>
